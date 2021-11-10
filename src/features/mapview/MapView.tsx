@@ -10,7 +10,7 @@ import { getMapViewData } from "./api/mapview";
 import { GeoType } from "./types";
 
 const MapView: FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<GeoType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [colorBool, setColorBool] = useState(false);
 
@@ -20,7 +20,7 @@ const MapView: FC = () => {
       long: Array<number>;
     } = { lat: [0, 0], long: [0, 0] };
 
-    const componentsArray = data.map((el: GeoType) => {
+    const componentsArray = data.map((el) => {
       el.geometry.coordinates.forEach(([lat, long]) => {
         centerAvg.lat[0] += Number(lat.toString());
         centerAvg.lat[1]++;
