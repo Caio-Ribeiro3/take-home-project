@@ -1,6 +1,9 @@
 import { memo, useState } from "react";
 import { Polyline, Popup } from "react-leaflet";
+
 import Table from "../../components/atoms/table/Table";
+
+import { theme } from "../../components/constants";
 
 import { GeoType } from "./types";
 
@@ -24,11 +27,8 @@ const MapViewItem = memo((props: iProps) => {
         },
       }}
       pathOptions={{
-        color: isHovered
-          ? "red"
-          : colorBool
-          ? el.properties.color
-          : "lightblue",
+        color: colorBool ? el.properties.color : theme.primaryColor,
+        opacity: isHovered ? 1 : 0.5,
       }}
       positions={el.geometry.coordinates}
     >
