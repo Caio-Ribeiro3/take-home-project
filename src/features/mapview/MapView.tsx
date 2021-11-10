@@ -1,35 +1,15 @@
 import { FC, useEffect, useState, useMemo } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 
+import Fab from "../../components/atoms/FAB/Fab";
+
 import MapViewItem from "./MapViewItem";
 
 import { getMapViewData } from "./api/mapview";
+
 import { GeoType } from "./types";
-import Fab from "../../components/atoms/FAB/Fab";
-import { getCenter } from "./utils";
 
-interface iBackDrop {
-  active: boolean;
-}
-
-const BackDrop = ({ active }: iBackDrop) => {
-  return (
-    <>
-      {active && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "rgba(0,0,0,.7)",
-            zIndex: 9999999,
-          }}
-        />
-      )}
-    </>
-  );
-};
-
-const MapView: FC = (props) => {
+const MapView: FC = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [colorBool, setColorBool] = useState(false);
@@ -46,7 +26,6 @@ const MapView: FC = (props) => {
         centerAvg.lat[1]++;
         centerAvg.long[0] += Number(long.toString());
         centerAvg.long[1]++;
-        getCenter();
       });
       return (
         <MapViewItem key={el.properties.uuid} el={el} colorBool={colorBool} />
@@ -69,10 +48,11 @@ const MapView: FC = (props) => {
       setIsLoading(false);
     })();
   }, []);
+
   return (
     <>
       {isLoading || !centerAvg.lat ? (
-        <p>loading</p>
+        <p>Loading...</p>
       ) : (
         <>
           <MapContainer
